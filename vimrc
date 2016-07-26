@@ -19,7 +19,9 @@ nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 
 nnoremap <f12> g<c-]>
-nnoremap <f11> <c-w>g<c-]>
+" nnoremap <f11> <c-w>g<c-]>
+nnoremap <f11> <c-w>g}
+map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
 nnoremap zC zCzz
 nnoremap zc zczz
 nnoremap <up> <c-w>k

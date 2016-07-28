@@ -75,7 +75,6 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "----------------- end for Vundle
 colorscheme heroku
-packadd! matchit
 let NERDTreeShowBookmarks=1
 "---------------------
 " this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.

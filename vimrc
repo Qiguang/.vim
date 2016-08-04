@@ -4,7 +4,6 @@ set number
 " set relativenumber
 " autocmd FileType taglist set norelativenumber
 " autocmd FileType nerdtree set norelativenumber
-set showcmd
 set tabstop=4
 set shiftwidth=4
 set hidden
@@ -59,6 +58,7 @@ Plugin 'wincent/command-t'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'noah/vim256-color'
+Plugin 'vim-scripts/Mark--Karkat' 
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -77,3 +77,10 @@ filetype plugin indent on    " required
 "----------------- end for Vundle
 colorscheme heroku
 let NERDTreeShowBookmarks=1
+"---------------------
+" this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
+" check Mark--Karkat help doc for help
+nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
+nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
+"---------------------
+set showcmd

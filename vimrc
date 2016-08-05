@@ -22,6 +22,7 @@ nnoremap <f12> g<c-]>zt
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
 nnoremap <f2> :gr! <c-r><c-w> 
+vnoremap <f2> y:gr! <c-r>" 
 nnoremap zC zCzz
 nnoremap zc zczz
 nnoremap <up> <c-w>k

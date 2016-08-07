@@ -1,8 +1,9 @@
 set incsearch
 set hlsearch
-set number
-" set relativenumber
-" autocmd FileType taglist set norelativenumber
+set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+autocmd FileType taglist set norelativenumber
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
 set shiftwidth=4

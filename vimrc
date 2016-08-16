@@ -1,8 +1,8 @@
 set incsearch
 set hlsearch
 set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
+autocmd InsertEnter * :set nu nornu
+autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
@@ -22,10 +22,12 @@ nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-nnoremap <f2> :gr! <c-r><c-w> 
-vnoremap <f2> y:gr! <c-r>" 
+nnoremap <f2> :gr! <c-r><c-w> *.c
+vnoremap <f2> y:gr! <c-r>" *.c
+nnoremap <f3> :UpdateTypesFileOnly<CR>
 nnoremap zC zCzz
 nnoremap zc zczz
+nnoremap / /\c
 nnoremap <up> <c-w>k
 nnoremap <down> <c-w>j
 nnoremap <left> <c-w>h

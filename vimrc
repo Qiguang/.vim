@@ -1,6 +1,6 @@
 set incsearch
 set hlsearch
-set relativenumber
+set nu rnu
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
@@ -12,7 +12,7 @@ set hidden
 "------------------ for folding
 set foldcolumn=3
 set foldmethod=syntax
-set foldlevel=2
+set foldlevel=3
 " set foldopen=all
 " set foldclose=all
 nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -22,9 +22,12 @@ nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-nnoremap <f2> :gr! <c-r><c-w> *.c
-vnoremap <f2> y:gr! <c-r>" *.c
-nnoremap <f3> :UpdateTypesFileOnly<CR>
+nnoremap <f2> :gr! "<c-r><c-w>" *.c *.h<left><left><left><left><left><left><left><left><left>
+vnoremap <f2> y:gr! "<c-r>"" *.c *.h<left><left><left><left><left><left><left><left><left>
+nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
+nnoremap <f5> :UpdateTypesFileOnly<CR>
+nnoremap <f7> :TlistToggle<CR>
+nnoremap <f8> :NERDTreeToggle<CR>
 nnoremap zC zCzz
 nnoremap zc zczz
 nnoremap / /\c
@@ -32,11 +35,16 @@ nnoremap <up> <c-w>k
 nnoremap <down> <c-w>j
 nnoremap <left> <c-w>h
 nnoremap <right> <c-w>l
+" <ESC>[A means <c-up>, check which sequence stands for <c-up>
+" by type ctrl-v ctrl-up in insert mode 
+nnoremap <ESC>[A <c-w>+
+nnoremap <ESC>[B <c-w>-
+nnoremap <ESC>[C <c-w>>
+nnoremap <ESC>[D <c-w><
 " nnoremap zo zozz
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V
 let Tlist_Exit_OnlyWindow = 1
-
 " auto check file changing out of vim
 au CursorHold * checktime
 
@@ -81,6 +89,9 @@ filetype plugin indent on    " required
 "----------------- end for Vundle
 colorscheme heroku
 let NERDTreeShowBookmarks=1
+let NERDTreeWinPos = "right"
+let NERDTreeChDirMode=2
+let NERDTreeHighlightCursorline=1
 "---------------------
 " this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
 " check Mark--Karkat help doc for help

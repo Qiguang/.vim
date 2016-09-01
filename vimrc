@@ -22,8 +22,8 @@ nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-nnoremap <f2> :gr! "<c-r><c-w>" *.c *.h<left><left><left><left><left><left><left><left><left>
-vnoremap <f2> y:gr! "<c-r>"" *.c *.h<left><left><left><left><left><left><left><left><left>
+nnoremap <f2> :gr! "<c-r><c-w>[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left>
+vnoremap <f2> y:gr! "<c-r>"[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left>
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>
@@ -99,3 +99,4 @@ nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "---------------------
 set showcmd
+hi StatusLine ctermfg=Brown

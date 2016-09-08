@@ -69,7 +69,7 @@ Plugin 'wincent/command-t'
 " Plugin 'xolox/vim-easytags'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/taglist.vim'
-Plugin 'noah/vim256-color'
+"Plugin 'noah/vim256-color'
 Plugin 'vim-scripts/Mark--Karkat' 
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
@@ -87,7 +87,6 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "----------------- end for Vundle
-colorscheme heroku
 let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "right"
 let NERDTreeChDirMode=2
@@ -98,4 +97,5 @@ let NERDTreeHighlightCursorline=1
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "---------------------
+colorscheme moloka
 set showcmd

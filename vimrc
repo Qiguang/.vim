@@ -99,4 +99,11 @@ nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "---------------------
 set showcmd
-hi StatusLine ctermfg=Brown
+" hi StatusLine ctermfg=Brown
+" hi Folded ctermfg=green
+" hi FoldColum ctermfg=green
+augroup BgHighlight
+	autocmd!
+	autocmd WinEnter * set cul
+	autocmd WinLeave * set nocul
+augroup END

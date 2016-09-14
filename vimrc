@@ -22,8 +22,8 @@ nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-nnoremap <f2> :gr! "<c-r><c-w>[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left>
-vnoremap <f2> y:gr! "<c-r>"[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left>
+nnoremap <f2> :gr! -i "<c-r><c-w>[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+vnoremap <f2> y:gr! -i "<c-r>"[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>
@@ -35,12 +35,18 @@ nnoremap <up> <c-w>k
 nnoremap <down> <c-w>j
 nnoremap <left> <c-w>h
 nnoremap <right> <c-w>l
-" <ESC>[A means <c-up>, check which sequence stands for <c-up>
+"different terminals have different character sequences of Function Keys , check which sequence stands for <c-up>  
 " by type ctrl-v ctrl-up in insert mode 
-nnoremap <ESC>[A <c-w>+
-nnoremap <ESC>[B <c-w>-
-nnoremap <ESC>[C <c-w>>
-nnoremap <ESC>[D <c-w><
+" ctrl-up ctrl-down ctrl-left ctrl-right to resize current window
+nnoremap [1;5A <c-w>+
+nnoremap [1;5B <c-w>-
+nnoremap [1;5C <c-w>>
+nnoremap [1;5D <c-w><
+" shift-up shift-down shift-left shift-right to move window position
+nnoremap [1;2A <c-w>K
+nnoremap [1;2B <c-w>J
+nnoremap [1;2C <c-w>L
+nnoremap [1;2D <c-w>H
 " nnoremap zo zozz
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V
@@ -107,3 +113,4 @@ augroup BgHighlight
 	autocmd WinEnter * set cul
 	autocmd WinLeave * set nocul
 augroup END
+autocmd FileType qf wincmd J

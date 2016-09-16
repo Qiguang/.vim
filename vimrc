@@ -22,8 +22,10 @@ nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-nnoremap <f2> :gr! -i "<c-r><c-w>[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
-vnoremap <f2> y:gr! -i "<c-r>"[^[:alpha:]]" *.c *.h<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+" -w of grep is used to match a whole word
+nnoremap <f2> :gr! "<c-r><c-w>" -iwr ./ --include=*.{c,h}<home><c-right><c-right>
+" in virsual mode, I don't want to search a whole word, so doesn't use -w
+vnoremap <f2> y:gr! "<c-r>"" -ir ./ --include=*.{c,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>

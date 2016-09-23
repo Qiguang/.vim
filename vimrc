@@ -33,6 +33,7 @@ nnoremap <f8> :NERDTreeToggle<CR>
 nnoremap zC zCzz
 nnoremap zc zczz
 nnoremap / /\c
+nnoremap ? ?\c
 nnoremap <up> <c-w>k
 nnoremap <down> <c-w>j
 nnoremap <left> <c-w>h
@@ -79,12 +80,16 @@ Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/taglist.vim'
 "Plugin 'noah/vim256-color'
 Plugin 'vim-scripts/Mark--Karkat' 
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'LucHermitte/local_vimrc'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
-"filetype plugin on
+" filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -115,4 +120,5 @@ augroup BgHighlight
 	autocmd WinEnter * set cul
 	autocmd WinLeave * set nocul
 augroup END
+" change default quick fix window position to bottom
 autocmd FileType qf wincmd J

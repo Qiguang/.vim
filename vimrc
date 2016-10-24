@@ -21,11 +21,14 @@ nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 nnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
-map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>
-" -w of grep is used to match a whole word
-nnoremap <f2> :gr! "<c-r><c-w>" -iwr ./ --include=*.{c,h}<home><c-right><c-right>
+set splitright
+map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
+" -w of grep is used to match a whole word 
+" %:h will be expanded as the path of current file
+" if I want to use CWD, replace %:h to ./
+nnoremap <f2> :gr! "<c-r><c-w>" -iwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -ir ./ --include=*.{c,h}<home><c-right><c-right>
+vnoremap <f2> y:gr! "<c-r>"" -ir %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>
@@ -52,7 +55,7 @@ nnoremap [1;2C <c-w>L
 nnoremap [1;2D <c-w>H
 " nnoremap zo zozz
 nnoremap zM zMzz
-vnoremap / <Esc>/\%V
+vnoremap / <Esc>/\%V\c
 let Tlist_Exit_OnlyWindow = 1
 " auto check file changing out of vim
 au CursorHold * checktime
@@ -78,10 +81,11 @@ Plugin 'wincent/command-t'
 " Plugin 'xolox/vim-easytags'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/taglist.vim'
-"Plugin 'noah/vim256-color'
 Plugin 'vim-scripts/Mark--Karkat' 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
+Plugin 'vim-scripts/AutoComplPop'
 Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety

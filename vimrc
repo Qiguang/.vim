@@ -127,3 +127,11 @@ augroup BgHighlight
 augroup END
 " change default quick fix window position to bottom
 autocmd FileType qf wincmd J
+
+"these 2 lines are for local vimrc plugin
+"the new version of this plugin has a secure mechanism, it will ask me if I want to load local_vimrc
+"every time I enter a directory that contains the local_vimrc file.
+"these 2 statements can add my HOME path to a whitelist, so it will not bother
+"me anymore if I enter a directory under my HOME path.
+call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
+call lh#local_vimrc#munge('whitelist', $HOME)

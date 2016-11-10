@@ -26,9 +26,10 @@ map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
 " -w of grep is used to match a whole word 
 " %:h will be expanded as the path of current file
 " if I want to use CWD, replace %:h to ./
-nnoremap <f2> :gr! "<c-r><c-w>" -iwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+" -F treat PATTERN as a fixed string instead of regex
+nnoremap <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -ir %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+vnoremap <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>

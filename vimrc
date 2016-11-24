@@ -19,18 +19,24 @@ nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 
 nnoremap <f12> g<c-]>zt
+vnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 set splitright
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
 " -w of grep is used to match a whole word 
 " %:h will be expanded as the path of current file
+" %:. stands for currnt file
 " if I want to use CWD, replace %:h to ./
 " -F treat PATTERN as a fixed string instead of regex
 nnoremap <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
 vnoremap <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+" replacement, add a 'c' after 'g' if you want to confirm each replacement
+" manually
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
+vnoremap <f3> :s/<c-r><c-w>/<c-r><c-w>/g
+
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>
 nnoremap <f8> :NERDTreeToggle<CR>
@@ -54,11 +60,15 @@ nnoremap [1;2A <c-w>K
 nnoremap [1;2B <c-w>J
 nnoremap [1;2C <c-w>L
 nnoremap [1;2D <c-w>H
+" alt-up alt-down to jump to next global search result
+nnoremap [1;3A :cp<CR>
+nnoremap [1;3B :cn<CR>
 " nnoremap zo zozz
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V\c
 let Tlist_Exit_OnlyWindow = 1
-" auto check file changing out of vim
+" auto check file changing out of vim when cursor holded for 'updatetime'
+set updatetime=1000
 au CursorHold * checktime
 
 " ------------------for Vundle
@@ -133,5 +143,5 @@ autocmd FileType qf wincmd J
 "every time I enter a directory that contains the local_vimrc file.
 "these 2 statements can add my HOME path to a whitelist, so it will not bother
 "me anymore if I enter a directory under my HOME path.
-call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
-call lh#local_vimrc#munge('whitelist', $HOME)
+sil! call lh#local_vimrc#filter_list('asklist', 'v:val != HOME')
+sil! call lh#local_vimrc#munge('whitelist', HOME)

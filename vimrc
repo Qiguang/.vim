@@ -69,7 +69,7 @@ vnoremap / <Esc>/\%V\c
 let Tlist_Exit_OnlyWindow = 1
 " auto check file changing out of vim when cursor holded for 'updatetime'
 set updatetime=1000
-au CursorHold * checktime
+au CursorHold * silent! checktime
 
 " ------------------for Vundle
 set nocompatible              " be iMproved, required
@@ -99,6 +99,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
+Plugin 'tpope/vim-surround'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

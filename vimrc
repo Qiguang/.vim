@@ -1,6 +1,7 @@
 set incsearch
 set hlsearch
 set nu rnu
+set list lcs=tab:\|\ 
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
@@ -10,7 +11,7 @@ set shiftwidth=4
 set hidden
 
 "------------------ for folding
-set foldcolumn=3
+set foldcolumn=1
 set foldmethod=syntax
 set foldlevel=3
 " set foldopen=all
@@ -66,7 +67,11 @@ nnoremap [1;3B :cn<CR>
 " nnoremap zo zozz
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V\c
-let Tlist_Exit_OnlyWindow = 1
+"----------for bufsurf----------
+" ctrl-7 for back ctrl-8 for forward
+nnoremap <silent> [1;5w :BufSurfBack<CR>
+nnoremap <silent> [1;5x :BufSurfForward<CR>
+"-------------------------------
 " auto check file changing out of vim when cursor holded for 'updatetime'
 set updatetime=1000
 au CursorHold * silent! checktime
@@ -91,7 +96,7 @@ Plugin 'wincent/command-t'
 "Guodong Liang more.
 " Plugin 'xolox/vim-easytags'
 Plugin 'abudden/taghighlight-automirror'
-Plugin 'vim-scripts/taglist.vim'
+Plugin 'rgo/taglist.vim'
 Plugin 'vim-scripts/Mark--Karkat' 
 " Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
 Plugin 'vim-scripts/AutoComplPop'
@@ -100,6 +105,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'tpope/vim-surround'
+Plugin 'ton/vim-bufsurf'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -121,6 +127,10 @@ let NERDTreeWinPos = "right"
 let NERDTreeChDirMode=2
 let NERDTreeHighlightCursorline=1
 "---------------------
+"----------for Tlist----------
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow = 1
+"--------------------
 " this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
 " check Mark--Karkat help doc for help
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext

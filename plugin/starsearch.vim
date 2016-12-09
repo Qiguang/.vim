@@ -24,6 +24,7 @@ function! s:VStarsearch_searchCWord()
 	else
 		let @/ = wordStr
 	endif
+	call histadd("/", @/)
 
 	let savedUnnamed = @"
 	let savedS = @s

@@ -154,5 +154,5 @@ autocmd FileType qf wincmd J
 "every time I enter a directory that contains the local_vimrc file.
 "these 2 statements can add my HOME path to a whitelist, so it will not bother
 "me anymore if I enter a directory under my HOME path.
-sil! call lh#local_vimrc#filter_list('asklist', 'v:val != HOME')
-sil! call lh#local_vimrc#munge('whitelist', HOME)
+sil! call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
+sil! call lh#local_vimrc#munge('whitelist', $HOME)

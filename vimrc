@@ -36,7 +36,7 @@ vnoremap <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c
 " replacement, add a 'c' after 'g' if you want to confirm each replacement
 " manually
 nnoremap <f3> :%s/<c-r><c-w>/<c-r><c-w>/g
-vnoremap <f3> :s/<c-r><c-w>/<c-r><c-w>/g
+vnoremap <f3> :s/\%V<c-r><c-w>/<c-r><c-w>/g
 
 nnoremap <f5> :UpdateTypesFileOnly<CR>
 nnoremap <f7> :TlistToggle<CR>

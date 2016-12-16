@@ -1,6 +1,8 @@
 set incsearch
 set hlsearch
 set nu rnu
+set laststatus=2
+set iskeyword-=:
 set list lcs=tab:\|\ 
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
@@ -12,13 +14,14 @@ set hidden
 
 "------------------ for folding
 set foldcolumn=1
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=3
 " set foldopen=all
 " set foldclose=all
 nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
-
+nnoremap <pageup> :bp<CR>
+nnoremap <pagedown> :bn<CR>
 nnoremap <f12> g<c-]>zt
 vnoremap <f12> g<c-]>zt
 " nnoremap <f11> <c-w>g<c-]>
@@ -98,6 +101,8 @@ Plugin 'wincent/command-t'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'rgo/taglist.vim'
 Plugin 'vim-scripts/Mark--Karkat' 
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'SirVer/ultisnips'
@@ -131,6 +136,13 @@ let NERDTreeHighlightCursorline=1
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow = 1
 "--------------------
+"----------for airline and airline theme-------------
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline_theme='kalisi'
+"----------------------------------
 " this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
 " check Mark--Karkat help doc for help
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext

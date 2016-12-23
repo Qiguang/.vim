@@ -111,6 +111,7 @@ Plugin 'LucHermitte/lh-vim-lib'
 Plugin 'LucHermitte/local_vimrc'
 Plugin 'tpope/vim-surround'
 Plugin 'ton/vim-bufsurf'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -131,6 +132,7 @@ let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "right"
 let NERDTreeChDirMode=2
 let NERDTreeHighlightCursorline=1
+let NERDTreeShowLineNumbers=1
 "---------------------
 "----------for Tlist----------
 let Tlist_Show_One_File=1

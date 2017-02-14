@@ -1,12 +1,16 @@
 set incsearch
 set hlsearch
 set nu rnu
+" set window fix height
+set wfh
+syntax enable
 set laststatus=2
 set iskeyword-=:
 set list lcs=tab:\|\ 
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
+packadd! matchit
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
 set shiftwidth=4

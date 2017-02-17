@@ -1,4 +1,6 @@
 set incsearch
+" the backspace cannot delete indent without this
+set backspace=2
 set hlsearch
 set nu rnu
 " set window fix height

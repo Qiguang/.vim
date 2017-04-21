@@ -3,8 +3,8 @@ set incsearch
 set backspace=2
 set hlsearch
 set nu rnu
-" set window fix height
-set wfh
+" set window fix height and width
+" set wfh
 syntax enable
 set laststatus=2
 set iskeyword-=:
@@ -28,8 +28,8 @@ nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 nnoremap <pageup> :bp<CR>
 nnoremap <pagedown> :bn<CR>
-nnoremap <f12> g<c-]>zt
-vnoremap <f12> g<c-]>zt
+nnoremap <f12> g<c-]>
+vnoremap <f12> g<c-]>
 " nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 set splitright
@@ -58,13 +58,17 @@ nnoremap <up> <c-w>k
 nnoremap <down> <c-w>j
 nnoremap <left> <c-w>h
 nnoremap <right> <c-w>l
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
 "different terminals have different character sequences of Function Keys , check which sequence stands for <c-up>  
 " by type ctrl-v ctrl-up in insert mode 
 " ctrl-up ctrl-down ctrl-left ctrl-right to resize current window
-nnoremap [1;5A <c-w>+
-nnoremap [1;5B <c-w>-
-nnoremap [1;5C <c-w>>
-nnoremap [1;5D <c-w><
+nnoremap [1;5A <c-w>+:set wfh<CR>
+nnoremap [1;5B <c-w>-:set wfh<CR>
+nnoremap [1;5C <c-w>>:set wfw<CR>
+nnoremap [1;5D <c-w><:set wfw<CR>
 " shift-up shift-down shift-left shift-right to move window position
 nnoremap [1;2A <c-w>K
 nnoremap [1;2B <c-w>J
@@ -103,21 +107,25 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'wincent/command-t'
 "Plugin 'bronson/vim-visual-star-search' I like starsearch.vim created by
 "Guodong Liang more.
-" Plugin 'xolox/vim-easytags'
+"Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-easytags'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'rgo/taglist.vim'
 Plugin 'vim-scripts/Mark--Karkat' 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'LucHermitte/lh-vim-lib'
-Plugin 'LucHermitte/local_vimrc'
+"Plugin 'LucHermitte/lh-vim-lib'
+"Plugin 'LucHermitte/local_vimrc'
+Plugin 'embear/vim-localvimrc'
 Plugin 'tpope/vim-surround'
 Plugin 'ton/vim-bufsurf'
 Plugin 'tpope/vim-fugitive'
+Plugin 'yssl/QFEnter'
+"Plugin 'lornix/vim-scrollbar'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -156,7 +164,6 @@ let g:airline_theme='kalisi'
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "---------------------
-colorscheme moloka
 set showcmd
 " hi StatusLine ctermfg=Brown
 " hi Folded ctermfg=green
@@ -176,3 +183,9 @@ autocmd FileType qf wincmd J
 "me anymore if I enter a directory under my HOME path.
 sil! call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
 sil! call lh#local_vimrc#munge('whitelist', $HOME)
+colorscheme moloka
+" for TagHighlight
+if ! exists('g:TagHighlightSettings')
+	let g:TagHighlightSettings = {}
+endif
+let g:TagHighlightSettings['DisableTagManager'] = 'True'

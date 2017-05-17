@@ -12,7 +12,7 @@ set list lcs=tab:\|\
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
-packadd! matchit
+silent! packadd! matchit
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
 set shiftwidth=4
@@ -39,11 +39,15 @@ map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
 " %:. stands for currnt file
 " if I want to use CWD, replace %:h to ./
 " -F treat PATTERN as a fixed string instead of regex
-nnoremap <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+nnoremap <f2> :gr! "<c-r><c-w>" -iFwr %:h <home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+vnoremap <f2> y:gr! "<c-r>"" -iFr %:h <home><c-right><c-right>
 " replacement, add a 'c' after 'g' if you want to confirm each replacement
 " manually
+" autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
+" the file extension 
+autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
+autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>//g<right><right>
 vnoremap <f3> :s/\%V<c-r><c-w>//g<right><right>
 
@@ -189,3 +193,4 @@ if ! exists('g:TagHighlightSettings')
 	let g:TagHighlightSettings = {}
 endif
 let g:TagHighlightSettings['DisableTagManager'] = 'True'
+imap jj <ESC>

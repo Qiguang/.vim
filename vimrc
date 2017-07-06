@@ -12,6 +12,7 @@ set list lcs=tab:\|\
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
+" see usr_05.txt install matchit
 silent! packadd! matchit
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
@@ -24,6 +25,12 @@ set foldmethod=indent
 set foldlevel=3
 " set foldopen=all
 " set foldclose=all
+inoremap {<CR> {<C-o>o}<C-o>O
+inoremap < <><left>
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
 nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 nnoremap <pageup> :bp<CR>
@@ -194,3 +201,23 @@ if ! exists('g:TagHighlightSettings')
 endif
 let g:TagHighlightSettings['DisableTagManager'] = 'True'
 imap jj <ESC>
+"deal with long lines
+nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0
+      \ ? ':normal! ' . (winline() - 1 - &scrolloff) . 'gkg^<CR>'
+      \ : 'g^'
+nnoremap <silent> <expr> gM winline() < (winheight(0)+1)/2
+      \ ? ':normal! ' . ((winheight(0)+1)/2 - winline()) . 'gjg^<CR>'
+      \ : winline() == (winheight(0)+1)/2
+      \         ? 'g^'
+      \         : ':normal! ' . (winline() - (winheight(0)+1)/2) . 'gkg^<CR>'
+nnoremap <silent> <expr> gL winheight(0) - winline() - &scrolloff > 0
+      \ ? ':normal! ' . (winheight(0) - winline() - &scrolloff) . 'gjg^<CR>'
+      \ : 'g^'
+map j gj
+map k gk
+map 0 g0
+map ^ g^
+map $ g$
+map 0 g0
+
+

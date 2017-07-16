@@ -3,6 +3,7 @@ set incsearch
 set backspace=2
 set hlsearch
 set nu rnu
+set noswapfile
 " set window fix height and width
 " set wfh
 syntax enable
@@ -26,18 +27,18 @@ set foldlevel=3
 " set foldopen=all
 " set foldclose=all
 inoremap {<CR> {<C-o>o}<C-o>O
-inoremap < <><left>
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
+inoremap {<tab> {}<left>
+inoremap <<tab> <><left>
+inoremap "<tab> ""<left>
+inoremap '<tab> ''<left>
+inoremap (<tab> ()<left>
+inoremap [<tab> []<left>
 nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 nnoremap <pageup> :bp<CR>
 nnoremap <pagedown> :bn<CR>
 nnoremap <f12> g<c-]>
 vnoremap <f12> g<c-]>
-" nnoremap <f11> <c-w>g<c-]>
 nnoremap <f11> <c-w>g}
 set splitright
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
@@ -46,20 +47,21 @@ map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
 " %:. stands for currnt file
 " if I want to use CWD, replace %:h to ./
 " -F treat PATTERN as a fixed string instead of regex
-nnoremap <f2> :gr! "<c-r><c-w>" -iFwr %:h <home><c-right><c-right>
+nnoremap <f2> :gr! "<c-r><c-w>" -iFwr "%:h" <home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -iFr %:h <home><c-right><c-right>
+vnoremap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right>
 " replacement, add a 'c' after 'g' if you want to confirm each replacement
 " manually
 " autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
 " the file extension 
-autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
-autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr %:h --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
+autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
+autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>//g<right><right>
 vnoremap <f3> :s/\%V<c-r><c-w>//g<right><right>
 
 nnoremap <f5> :UpdateTypesFileOnly<CR>
-nnoremap <f7> :TlistToggle<CR>
+nnoremap <f7> :TagbarToggle<CR>
 nnoremap <f8> :NERDTreeToggle<CR>
 nnoremap zC zCzz
 nnoremap zc zczz
@@ -92,9 +94,9 @@ nnoremap [1;3B :cn<CR>
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V\c
 "----------for bufsurf----------
-" ctrl-7 for back ctrl-8 for forward
-nnoremap <silent> [1;5w :BufSurfBack<CR>
-nnoremap <silent> [1;5x :BufSurfForward<CR>
+" ctrl-9 for back ctrl-0 for forward
+nnoremap <silent> [1;5y :BufSurfBack<CR>
+nnoremap <silent> [1;5p :BufSurfForward<CR>
 "-------------------------------
 " auto check file changing out of vim when cursor holded for 'updatetime'
 set updatetime=1000
@@ -119,9 +121,8 @@ Plugin 'wincent/command-t'
 "Plugin 'bronson/vim-visual-star-search' I like starsearch.vim created by
 "Guodong Liang more.
 "Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
 Plugin 'abudden/taghighlight-automirror'
-Plugin 'rgo/taglist.vim'
 Plugin 'vim-scripts/Mark--Karkat' 
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
@@ -136,7 +137,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'ton/vim-bufsurf'
 Plugin 'tpope/vim-fugitive'
 Plugin 'yssl/QFEnter'
-"Plugin 'lornix/vim-scrollbar'
+Plugin 'ctrlpvim/ctrlp.vim'
 " Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -153,16 +154,21 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 "----------------- end for Vundle
+colorscheme moloka
+"--------for NERDTree
 let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "right"
 let NERDTreeChDirMode=2
 let NERDTreeHighlightCursorline=1
 let NERDTreeShowLineNumbers=1
 "---------------------
-"----------for Tlist----------
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow = 1
-"--------------------
+"----------for Tarbar
+let g:tagbar_width = 30
+let g:tagbar_zoomwidth = 0
+let g:tagbar_left = 1
+let g:tagbar_sort = 0
+let g:tagbar_autofocus = 1
+highlight TagbarSignature ctermfg=67
 "----------for airline and airline theme-------------
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#show_splits = 0
@@ -194,13 +200,16 @@ autocmd FileType qf wincmd J
 "me anymore if I enter a directory under my HOME path.
 sil! call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
 sil! call lh#local_vimrc#munge('whitelist', $HOME)
-colorscheme moloka
 " for TagHighlight
 if ! exists('g:TagHighlightSettings')
 	let g:TagHighlightSettings = {}
 endif
 let g:TagHighlightSettings['DisableTagManager'] = 'True'
 imap jj <ESC>
+"------------for local vimrc
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
+"--------------------------
 "deal with long lines
 nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0
       \ ? ':normal! ' . (winline() - 1 - &scrolloff) . 'gkg^<CR>'
@@ -219,5 +228,4 @@ map 0 g0
 map ^ g^
 map $ g$
 map 0 g0
-
 

@@ -1,15 +1,24 @@
 set incsearch
+set infercase
+let g:acp_ignorecaseOption = 0
+let g:acp_completeoptPreview = 1
 " the backspace cannot delete indent without this
 set backspace=2
 set hlsearch
 set nu rnu
 set noswapfile
+set complete=t,.,w,b,u,i
+set completeopt+=noinsert
 " set window fix height and width
 " set wfh
 syntax enable
 set laststatus=2
 set iskeyword-=:
+autocmd FileType html :set iskeyword+=-
+"---------------- show line head tab as |----------
+":h listchars for help
 set list lcs=tab:\|\ 
+"--------------------------------------------------
 autocmd InsertEnter * :set nu nornu
 autocmd InsertLeave * :set nu rnu
 autocmd FileType taglist set norelativenumber
@@ -18,12 +27,13 @@ silent! packadd! matchit
 " autocmd FileType nerdtree set norelativenumber
 set tabstop=4
 set shiftwidth=4
+set expandtab
 set hidden
 
 "------------------ for folding
 set foldcolumn=1
 set foldmethod=indent
-set foldlevel=3
+set foldlevel=100
 " set foldopen=all
 " set foldclose=all
 inoremap {<CR> {<C-o>o}<C-o>O
@@ -121,20 +131,26 @@ Plugin 'wincent/command-t'
 "Plugin 'bronson/vim-visual-star-search' I like starsearch.vim created by
 "Guodong Liang more.
 "Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-notes'
 Plugin 'majutsushi/tagbar'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/Mark--Karkat' 
-"Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
+Plugin 'jvanja/vim-bootstrap4-snippets'
 " Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
+"Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 "Plugin 'LucHermitte/lh-vim-lib'
 "Plugin 'LucHermitte/local_vimrc'
+Plugin 'sbdchd/neoformat'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'embear/vim-localvimrc'
 Plugin 'tpope/vim-surround'
-Plugin 'ton/vim-bufsurf'
+Plugin 'Qiguang/vim-bufsurf'
 Plugin 'tpope/vim-fugitive'
 Plugin 'yssl/QFEnter'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -155,6 +171,13 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "----------------- end for Vundle
 colorscheme moloka
+"--------for ctrlp--------------
+let g:ctrlp_cmd = 'CtrlPBuffer'
+"--------for netrw--------------
+"let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_winsize = 20
+"-------------------------------
 "--------for NERDTree
 let NERDTreeShowBookmarks=1
 let NERDTreeWinPos = "right"
@@ -169,18 +192,31 @@ let g:tagbar_left = 1
 let g:tagbar_sort = 0
 let g:tagbar_autofocus = 1
 highlight TagbarSignature ctermfg=67
+"----------for ultisnips---------------
+autocmd FileType jsp :UltiSnipsAddFiletypes jsp.java.html
+let g:UltiSnipsSnippetsDir = "~/.vim/mySnippets/"
+let g:UltiSnipsSnippetDirectories=["Ultisnips","mySnippets"]
+"--------------------------------------
 "----------for airline and airline theme-------------
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline_theme='kalisi'
 "----------------------------------
 " this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
 " check Mark--Karkat help doc for help
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "---------------------
+"------------for syntastic---------------------
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"----------------------------------------------
+"-----------for notes----------
+"let g:notes_directories = ['~/Notes']
+"------------------------------
 set showcmd
 " hi StatusLine ctermfg=Brown
 " hi Folded ctermfg=green
@@ -228,4 +264,6 @@ map 0 g0
 map ^ g^
 map $ g$
 map 0 g0
-
+if &diff
+    set noro
+endif

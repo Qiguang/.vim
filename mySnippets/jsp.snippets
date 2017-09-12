@@ -1,0 +1,36 @@
+snippet decl "Declaration<%! %>"
+<%!
+	${1}
+%>
+endsnippet
+snippet exp "Expression<%= %>"
+<%= ${1} %>
+endsnippet
+snippet scri "Scriptlet<% %>"
+<%
+	${1}
+%>
+endsnippet
+snippet pl "out.println"
+out.println(${1});
+endsnippet
+
+snippet import "import"
+<%@ page import="${1}"%>
+endsnippet
+
+snippet useb "useBean"
+<jsp:useBean id="${1}" class="${2}" />
+endsnippet
+
+snippet setp "set property"
+<jsp:setProperty property="*" name="${1}" />
+endsnippet
+
+snippet forw "forward"
+<jsp:forward page="${1}" />
+endsnippet
+
+snippet inc "include"
+<jsp:include page="${1}" />
+endsnippet

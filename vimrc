@@ -1,5 +1,7 @@
 set incsearch
 set infercase
+set encoding=utf-8
+set fileencoding=utf-8
 let g:acp_ignorecaseOption = 0
 let g:acp_completeoptPreview = 1
 " the backspace cannot delete indent without this
@@ -36,13 +38,6 @@ set foldmethod=indent
 set foldlevel=100
 " set foldopen=all
 " set foldclose=all
-inoremap {<CR> {<C-o>o}<C-o>O
-inoremap {<tab> {}<left>
-inoremap <<tab> <><left>
-inoremap "<tab> ""<left>
-inoremap '<tab> ''<left>
-inoremap (<tab> ()<left>
-inoremap [<tab> []<left>
 nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 "------------------ end for folding 
 nnoremap <pageup> :bp<CR>
@@ -57,16 +52,16 @@ map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
 " %:. stands for currnt file
 " if I want to use CWD, replace %:h to ./
 " -F treat PATTERN as a fixed string instead of regex
-nnoremap <f2> :gr! "<c-r><c-w>" -iFwr "%:h" <home><c-right><c-right>
+nnoremap <f2> :gr! "<c-r><c-w>" -iFwr "." <home><c-right><c-right>
 " in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right>
+vnoremap <f2> y:gr! "<c-r>"" -iFr "." <home><c-right><c-right>
 " replacement, add a 'c' after 'g' if you want to confirm each replacement
 " manually
 " autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
 " the file extension 
-autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
-autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
-autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "%:h" --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "%:h" --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
+autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
+autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 nnoremap <f3> :%s/<c-r><c-w>//g<right><right>
 vnoremap <f3> :s/\%V<c-r><c-w>//g<right><right>
 
@@ -109,7 +104,7 @@ nnoremap <silent> [1;5y :BufSurfBack<CR>
 nnoremap <silent> [1;5p :BufSurfForward<CR>
 "-------------------------------
 " auto check file changing out of vim when cursor holded for 'updatetime'
-set updatetime=1000
+set updatetime=500
 au CursorHold * silent! checktime
 
 " ------------------for Vundle
@@ -132,6 +127,7 @@ Plugin 'wincent/command-t'
 "Guodong Liang more.
 "Plugin 'xolox/vim-misc'
 "Plugin 'xolox/vim-notes'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'majutsushi/tagbar'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'vim-scripts/Mark--Karkat' 
@@ -211,7 +207,7 @@ nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "------------for syntastic---------------------
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "----------------------------------------------
 "-----------for notes----------
@@ -267,3 +263,34 @@ map 0 g0
 if &diff
     set noro
 endif
+" Dim inactive windows using 'colorcolumn' setting
+" This tends to slow down redrawing, but is very useful.
+" Based on https://groups.google.com/d/msg/vim_use/IJU-Vk-QLJE/xz4hjPjCRBUJ
+" XXX: this will only work with lines containing text (i.e. not '~')
+" from 
+"if exists('+colorcolumn')
+  "function! s:DimInactiveWindows()
+    "for i in range(1, tabpagewinnr(tabpagenr(), '$'))
+      "let l:range = ""
+      "if i != winnr()
+        "if &wrap
+         "" HACK: when wrapping lines is enabled, we use the maximum number
+         "" of columns getting highlighted. This might get calculated by
+         "" looking for the longest visible line and using a multiple of
+         "" winwidth().
+         "let l:width=256 " max
+        "else
+         "let l:width=winwidth(i)
+        "endif
+        "let l:range = join(range(1, l:width), ',')
+      "endif
+      "call setwinvar(i, '&colorcolumn', l:range)
+    "endfor
+  "endfunction
+  "augroup DimInactiveWindows
+    "au!
+    "au WinEnter * call s:DimInactiveWindows()
+    "au WinEnter * set cursorline
+    "au WinLeave * set nocursorline
+  "augroup END
+"endif

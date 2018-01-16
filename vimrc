@@ -1,6 +1,8 @@
 set incsearch
 set infercase
 set encoding=utf-8
+" reopen the file with specified encoding
+" :e ++enc=utf-8
 set fileencodings=utf-8,utf-16,gbk,big5,gb180380,latin1
 let g:acp_ignorecaseOption = 0
 let g:acp_completeoptPreview = 1

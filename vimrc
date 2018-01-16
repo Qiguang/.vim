@@ -1,7 +1,7 @@
 set incsearch
 set infercase
 set encoding=utf-8
-set fileencoding=utf-8
+set fileencodings=utf-8,utf-16,gbk,big5,gb180380,latin1
 let g:acp_ignorecaseOption = 0
 let g:acp_completeoptPreview = 1
 " the backspace cannot delete indent without this
@@ -99,9 +99,9 @@ nnoremap [1;3B :cn<CR>
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V\c
 "----------for bufsurf----------
-" ctrl-9 for back ctrl-0 for forward
-nnoremap <silent> [1;5y :BufSurfBack<CR>
-nnoremap <silent> [1;5p :BufSurfForward<CR>
+" alt-9 for back alt-0 for forward
+nnoremap <silent> 9 :BufSurfBack<CR>
+nnoremap <silent> 0 :BufSurfForward<CR>
 "-------------------------------
 " auto check file changing out of vim when cursor holded for 'updatetime'
 set updatetime=500

@@ -143,8 +143,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 "Plugin 'LucHermitte/lh-vim-lib'
 "Plugin 'LucHermitte/local_vimrc'
-Plugin 'sbdchd/neoformat'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'maksimr/vim-jsbeautify'
+"Plugin 'vim-syntastic/syntastic'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'embear/vim-localvimrc'
 Plugin 'tpope/vim-surround'
@@ -296,3 +296,14 @@ endif
     "au WinLeave * set nocursorline
   "augroup END
 "endif
+" for vim-jsbeautify
+autocmd FileType javascript noremap <buffer>  <F4> :call JsBeautify()<cr>
+autocmd FileType json noremap <buffer> <F4> :call JsonBeautify()<cr>
+autocmd FileType jsx noremap <buffer> <F4> :call JsxBeautify()<cr>
+autocmd FileType html noremap <buffer> <F4> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <F4> :call CSSBeautify()<cr>
+autocmd FileType javascript vnoremap <buffer>  <F4> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <F4> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <F4> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <F4> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <F4> :call RangeCSSBeautify()<cr>

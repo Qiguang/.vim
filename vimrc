@@ -139,57 +139,42 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'vim-scripts/casejump.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'wincent/command-t'
-"Plugin 'bronson/vim-visual-star-search' I like starsearch.vim created by
+call plug#begin()
+Plug 'vim-scripts/casejump.vim'
+Plug 'scrooloose/nerdtree'
+"Plug 'wincent/command-t'
+"Plug 'bronson/vim-visual-star-search' I like starsearch.vim created by
 "Guodong Liang more.
-"Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-notes'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'majutsushi/tagbar'
-Plugin 'abudden/taghighlight-automirror'
-Plugin 'vim-scripts/Mark--Karkat' 
-Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
-Plugin 'jvanja/vim-bootstrap4-snippets'
-" Plugin 'Valloric/YouCompleteMe' cygwin seems not support ycm
-"Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'vim-scripts/AutoComplPop'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-"Plugin 'LucHermitte/lh-vim-lib'
-"Plugin 'LucHermitte/local_vimrc'
-Plugin 'maksimr/vim-jsbeautify'
-"Plugin 'vim-syntastic/syntastic'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'embear/vim-localvimrc'
-Plugin 'tpope/vim-surround'
-Plugin 'Qiguang/vim-bufsurf'
-Plugin 'tpope/vim-fugitive'
-Plugin 'yssl/QFEnter'
-Plugin 'ctrlpvim/ctrlp.vim'
-" Plugin 'flazz/vim-colorschemes' colors doesn't show propriety
+"Plug 'xolox/vim-misc'
+"Plug 'xolox/vim-notes'
+Plug 'jiangmiao/auto-pairs'
+Plug 'majutsushi/tagbar'
+Plug 'abudden/taghighlight-automirror'
+Plug 'vim-scripts/Mark--Karkat' 
+Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+Plug 'jvanja/vim-bootstrap4-snippets'
+" Plug 'Valloric/YouCompleteMe' cygwin seems not support ycm
+"Plug 'artur-shaik/vim-javacomplete2'
+Plug 'vim-scripts/AutoComplPop'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"Plug 'LucHermitte/lh-vim-lib'
+"Plug 'LucHermitte/local_vimrc'
+Plug 'maksimr/vim-jsbeautify'
+"Plug 'vim-syntastic/syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'embear/vim-localvimrc'
+Plug 'tpope/vim-surround'
+Plug 'Qiguang/vim-bufsurf'
+Plug 'tpope/vim-fugitive'
+Plug 'yssl/QFEnter'
+Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'flazz/vim-colorschemes' colors doesn't show propriety
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
+
 " Put your non-Plugin stuff after this line
 "----------------- end for Vundle
 colorscheme moloka

@@ -85,25 +85,49 @@ nnoremap <c-h> <c-w>h
 "different terminals have different character sequences of Function Keys , check which sequence stands for <c-up>  
 " by type ctrl-v ctrl-up in insert mode 
 " ctrl-up ctrl-down ctrl-left ctrl-right to resize current window
-nnoremap [1;5A <c-w>+:set wfh<CR>
-nnoremap [1;5B <c-w>-:set wfh<CR>
-nnoremap [1;5C <c-w>>:set wfw<CR>
-nnoremap [1;5D <c-w><:set wfw<CR>
+if has('nvim')
+    nnoremap <c-up> <c-w>+:set wfh<CR>
+    nnoremap <c-down> <c-w>-:set wfh<CR>
+    nnoremap <c-left> <c-w>>:set wfw<CR>
+    nnoremap <c-right> <c-w><:set wfw<CR>
+else
+    nnoremap [1;5A <c-w>+:set wfh<CR>
+    nnoremap [1;5B <c-w>-:set wfh<CR>
+    nnoremap [1;5C <c-w>>:set wfw<CR>
+    nnoremap [1;5D <c-w><:set wfw<CR>
+endif
 " shift-up shift-down shift-left shift-right to move window position
-nnoremap [1;2A <c-w>K
-nnoremap [1;2B <c-w>J
-nnoremap [1;2C <c-w>L
-nnoremap [1;2D <c-w>H
+if has('nvim')
+    nnoremap <s-up> <c-w>K
+    nnoremap <s-down> <c-w>J
+    nnoremap <s-left> <c-w>L
+    nnoremap <s-right> <c-w>H
+else
+    nnoremap [1;2A <c-w>K
+    nnoremap [1;2B <c-w>J
+    nnoremap [1;2C <c-w>L
+    nnoremap [1;2D <c-w>H
+endif
 " alt-up alt-down to jump to next global search result
-nnoremap [1;3A :cp<CR>
-nnoremap [1;3B :cn<CR>
+if has('nvim')
+    nnoremap <m-up> :cp<CR>
+    nnoremap <m-down> :cn<CR>
+else
+    nnoremap [1;3A :cp<CR>
+    nnoremap [1;3B :cn<CR>
+endif
 " nnoremap zo zozz
 nnoremap zM zMzz
 vnoremap / <Esc>/\%V\c
 "----------for bufsurf----------
 " alt-9 for back alt-0 for forward
-nnoremap <silent> 9 :BufSurfBack<CR>
-nnoremap <silent> 0 :BufSurfForward<CR>
+if has('nvim')
+    nnoremap <silent> <m-9> :BufSurfBack<CR>
+    nnoremap <silent> <m-0> :BufSurfForward<CR>
+else
+    nnoremap <silent> 9 :BufSurfBack<CR>
+    nnoremap <silent> 0 :BufSurfForward<CR>
+endif
 "-------------------------------
 " auto check file changing out of vim when cursor holded for 'updatetime'
 set updatetime=500

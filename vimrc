@@ -124,8 +124,13 @@ map 0 g0
 " plugins
 "  vim-plug is needed, 
 "  download vim-plug in Unix:
+"  for nvim:
 "   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 "    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+"  for vim:
+"  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
 "  For more infomation please goto: https://github.com/junegunn/vim-plug
 call plug#begin()
 "   nerdtree
@@ -149,11 +154,9 @@ Plug 'Qiguang/vim-bufsurf'
 "   starsearch.vim: star search the visual selected word
 Plug 'vim-scripts/star-search'
 
-
-
 call plug#end()
 " some plugins need python installed, about how to install python
-" please see :h python-provider
+" if in nvim, please see :h python-provider
 
 " plugin related config
 "   nerdtree

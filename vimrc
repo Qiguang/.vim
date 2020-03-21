@@ -41,7 +41,8 @@ set noswapfile
 set laststatus=2  " give a status line to every window
 imap jj <ESC>
 au BufEnter,FocusGained,WinEnter * silent! checktime  " check file change
-au WinEnter * set cul    " show cursorline on active window
+set cul    " show cursorline on active window
+au WinEnter * set cul
 au WinLeave * set nocul
 set hidden  " when switch buffer while content is changed, just keep it.
 set wildmode=longest:full  " set completion mode, pls see help

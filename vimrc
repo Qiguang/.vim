@@ -1,258 +1,107 @@
-set incsearch
-set infercase
-set encoding=utf-8
-" reopen the file with specified encoding
-" :e ++enc=utf-8
-set fileencodings=utf-8,utf-16,gbk,big5,gb180380,latin1
-let g:acp_ignorecaseOption = 0
-let g:acp_completeoptPreview = 1
-" the backspace cannot delete indent without this
-set backspace=2
-set hlsearch
-set nu rnu
-set noswapfile
-set complete=t,.,w,b,u,i
-set completeopt+=noinsert
-" set window fix height and width
-" set wfh
-syntax enable
-set laststatus=2
-set iskeyword-=:
-autocmd FileType html :set iskeyword+=-
-"---------------- show line head tab as |----------
-":h listchars for help
-set list lcs=tab:\|\ 
-"--------------------------------------------------
-autocmd InsertEnter * :set nu nornu
-autocmd InsertLeave * :set nu rnu
-autocmd FileType taglist set norelativenumber
-" see usr_05.txt install matchit
-silent! packadd! matchit
-" autocmd FileType nerdtree set norelativenumber
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set hidden
-
-"------------------ for folding
-set foldcolumn=1
-set foldmethod=indent
-set foldlevel=100
-" set foldopen=all
-" set foldclose=all
-nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-"------------------ end for folding 
-nnoremap <pageup> :bp<CR>
-nnoremap <pagedown> :bn<CR>
-nnoremap <f12> g<c-]>
-vnoremap <f12> g<c-]>
-nnoremap <f11> <c-w>g}
-set splitright
-map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
-" -w of grep is used to match a whole word 
-" %:h will be expanded as the path of current file
-" %:. stands for currnt file
-" if I want to use CWD, replace %:h to ./
-" -F treat PATTERN as a fixed string instead of regex
-nnoremap <f2> :gr! "<c-r><c-w>" -iFwr "." <home><c-right><c-right>
-" in virsual mode, I don't want to search a whole word, so doesn't use -w
-vnoremap <f2> y:gr! "<c-r>"" -iFr "." <home><c-right><c-right>
-" replacement, add a 'c' after 'g' if you want to confirm each replacement
-" manually
-" autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
-" the file extension 
-autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
-autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
-autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
-nnoremap <f3> :%s/<c-r><c-w>//g<right><right>
-vnoremap <f3> :s/\%V<c-r><c-w>//g<right><right>
-
-nnoremap <f5> :UpdateTypesFileOnly<CR>
-nnoremap <f7> :TagbarToggle<CR>
-nnoremap <f8> :NERDTreeToggle<CR>
-nnoremap zC zCzz
-nnoremap zc zczz
-nnoremap / /\c
-nnoremap ? ?\c
-nnoremap <up> <c-w>k
-nnoremap <down> <c-w>j
-nnoremap <left> <c-w>h
-nnoremap <right> <c-w>l
-nnoremap <c-k> <c-w>k
-nnoremap <c-j> <c-w>j
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-"different terminals have different character sequences of Function Keys , check which sequence stands for <c-up>  
-" by type ctrl-v ctrl-up in insert mode 
-" ctrl-up ctrl-down ctrl-left ctrl-right to resize current window
-if has('nvim')
-    nnoremap <c-up> <c-w>+:set wfh<CR>
-    nnoremap <c-down> <c-w>-:set wfh<CR>
-    nnoremap <c-left> <c-w>>:set wfw<CR>
-    nnoremap <c-right> <c-w><:set wfw<CR>
-else
-    nnoremap [1;5A <c-w>+:set wfh<CR>
-    nnoremap [1;5B <c-w>-:set wfh<CR>
-    nnoremap [1;5C <c-w>>:set wfw<CR>
-    nnoremap [1;5D <c-w><:set wfw<CR>
-endif
-" shift-up shift-down shift-left shift-right to move window position
-if has('nvim')
-    nnoremap <s-up> <c-w>K
-    nnoremap <s-down> <c-w>J
-    nnoremap <s-left> <c-w>L
-    nnoremap <s-right> <c-w>H
-else
-    nnoremap [1;2A <c-w>K
-    nnoremap [1;2B <c-w>J
-    nnoremap [1;2C <c-w>L
-    nnoremap [1;2D <c-w>H
-endif
-" alt-up alt-down to jump to next global search result
-if has('nvim')
-    nnoremap <m-up> :cp<CR>
-    nnoremap <m-down> :cn<CR>
-else
-    nnoremap [1;3A :cp<CR>
-    nnoremap [1;3B :cn<CR>
-endif
-" nnoremap zo zozz
-nnoremap zM zMzz
-vnoremap / <Esc>/\%V\c
-"----------for bufsurf----------
-" alt-9 for back alt-0 for forward
-if has('nvim')
-    nnoremap <silent> <m-9> :BufSurfBack<CR>
-    nnoremap <silent> <m-0> :BufSurfForward<CR>
-else
-    nnoremap <silent> 9 :BufSurfBack<CR>
-    nnoremap <silent> 0 :BufSurfForward<CR>
-endif
-"-------------------------------
-" auto check file changing out of vim when cursor holded for 'updatetime'
-set updatetime=500
-au CursorHold * silent! checktime
-
-" ------------------for Vundle
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call plug#begin()
-Plug 'vim-scripts/casejump.vim'
-Plug 'scrooloose/nerdtree'
-"Plug 'wincent/command-t'
-"Plug 'bronson/vim-visual-star-search' I like starsearch.vim created by
-"Guodong Liang more.
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-notes'
-Plug 'jiangmiao/auto-pairs'
-Plug 'majutsushi/tagbar'
-Plug 'abudden/taghighlight-automirror'
-Plug 'vim-scripts/Mark--Karkat' 
-Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-Plug 'jvanja/vim-bootstrap4-snippets'
-" Plug 'Valloric/YouCompleteMe' cygwin seems not support ycm
-"Plug 'artur-shaik/vim-javacomplete2'
-Plug 'vim-scripts/AutoComplPop'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-"Plug 'LucHermitte/lh-vim-lib'
-"Plug 'LucHermitte/local_vimrc'
-Plug 'maksimr/vim-jsbeautify'
-"Plug 'vim-syntastic/syntastic'
-Plug 'scrooloose/nerdcommenter'
-Plug 'embear/vim-localvimrc'
-Plug 'tpope/vim-surround'
-Plug 'Qiguang/vim-bufsurf'
-Plug 'tpope/vim-fugitive'
-Plug 'yssl/QFEnter'
-Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'flazz/vim-colorschemes' colors doesn't show propriety
-" All of your Plugins must be added before the following line
-call plug#end()            " required
-filetype plugin indent on    " required
-
-" Put your non-Plugin stuff after this line
-"----------------- end for Vundle
 colorscheme moloka
-"--------for ctrlp--------------
-let g:ctrlp_cmd = 'CtrlPBuffer'
-"--------for netrw--------------
-"let g:netrw_liststyle = 3
-"let g:netrw_browse_split = 4
-"let g:netrw_winsize = 20
-"-------------------------------
-"--------for NERDTree
-let NERDTreeShowBookmarks=1
-let NERDTreeWinPos = "right"
-let NERDTreeChDirMode=2
-let NERDTreeHighlightCursorline=1
-let NERDTreeShowLineNumbers=1
-"---------------------
-"----------for Tarbar
-let g:tagbar_width = 30
-let g:tagbar_zoomwidth = 0
-let g:tagbar_left = 1
-let g:tagbar_sort = 0
-let g:tagbar_autofocus = 1
-highlight TagbarSignature ctermfg=67
-"----------for ultisnips---------------
-autocmd FileType jsp :UltiSnipsAddFiletypes jsp.java.html
-let g:UltiSnipsSnippetsDir = "~/.vim/mySnippets/"
-let g:UltiSnipsSnippetDirectories=["Ultisnips","mySnippets"]
-"--------------------------------------
-"----------for airline and airline theme-------------
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_type = 0
-"----------------------------------
-" this 2 lines is for Mark--Karkat plugin, to avoid conflit with starsearch.
-" check Mark--Karkat help doc for help
-nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
-nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
-"---------------------
-"------------for syntastic---------------------
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"----------------------------------------------
-"-----------for notes----------
-"let g:notes_directories = ['~/Notes']
-"------------------------------
-set showcmd
-" hi StatusLine ctermfg=Brown
-" hi Folded ctermfg=green
-" hi FoldColum ctermfg=green
-augroup BgHighlight
-	autocmd!
-	autocmd WinEnter * set cul
-	autocmd WinLeave * set nocul
-augroup END
-" change default quick fix window position to bottom
+" search&replacement related config
+set incsearch
+set hlsearch
+nmap / /\c
+nmap ? ?\c
+vmap / <ESC>/\%V\c
+nmap <f2> :gr! "<c-r><c-w>" -iFwr "%:h" <home><c-right><c-right><left>
+vmap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right><left>
+" comment of <f2>: 
+"   Fn2 is used for search globally
+"   flags
+"     -i ignore case
+"     -F treat PATTERN as a fixed string but not a regex
+"     -w match a whole word
+"     -r recursively
+"   path to search
+"     . CWD
+"     %:h the path of current file
+"     %:. in current file
+nmap <f3> :%s/<c-r><c-w>//g<right><right>
+vmap <f3> :s/\%V<c-r><c-w>//g<right><right>
+" comment of <f3>:
+"   Fn3 is used for replacement
+"   append 'c' after this command to enable confirmation for 
+"   every replacement, e.g. %s/StringA/StringB/gc
+nmap <m-up> :cp<CR>
+nmap <m-down> :cn<CR>
+" comment of alt-up,down:
+"   jump to the next item of global search list
+
+" about line number
+set number
+set relativenumber
+autocmd InsertEnter * set nu nornu
+autocmd InsertLeave * set nu rnu
+autocmd FileType taglist set nornu
+
+" misc config
+set noswapfile
+set laststatus=2  " give a status line to every window
+imap jj <ESC>
+au BufEnter,FocusGained,WinEnter * silent! checktime  " check file change
+au WinEnter * set cul    " show cursorline on active window
+au WinLeave * set nocul
+set hidden  " when switch buffer while content is changed, just keep it.
+set wildmode=longest:full  " set completion mode, pls see help
+set iskeyword-=: " this option affect the * command(highlighting) 
+autocmd FileType html set iskeyword+=-
+set list lcs=tab:\|\ " display the indent tab as |, :h listchars for help"
+set expandtab " tabs typed will be replace by spaces"
+if &diff
+    set noro
+endif
+
+" quickfix window
+"  show quickfix window on the bottom
 autocmd FileType qf wincmd J
 
-"these 2 lines are for local vimrc plugin
-"the new version of this plugin has a secure mechanism, it will ask me if I want to load local_vimrc
-"every time I enter a directory that contains the local_vimrc file.
-"these 2 statements can add my HOME path to a whitelist, so it will not bother
-"me anymore if I enter a directory under my HOME path.
-sil! call lh#local_vimrc#filter_list('asklist', 'v:val != $HOME')
-sil! call lh#local_vimrc#munge('whitelist', $HOME)
-" for TagHighlight
-if ! exists('g:TagHighlightSettings')
-	let g:TagHighlightSettings = {}
-endif
-let g:TagHighlightSettings['DisableTagManager'] = 'True'
-imap jj <ESC>
-"------------for local vimrc
-let g:localvimrc_sandbox = 0
-let g:localvimrc_ask = 0
-"--------------------------
+" keyword completion related config
+set complete=t,.,w,b,u,i
+set completeopt+=noinsert,menuone
+set infercase
+
+" tab key related config
+set tabstop=4
+set shiftwidth=4
+
+" folding related config
+set foldcolumn=1  " showing a column at the lift side of the window indicates folds
+set foldmethod=indent
+set foldlevel=100
+nnoremap <silent><Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+
+" window related config
+" window focusing
+nmap <up> <c-w>k
+nmap <down> <c-w>j
+nmap <right> <c-w>l
+nmap <left> <c-w>h
+nmap <c-k> <c-w>k
+nmap <c-j> <c-w>j
+nmap <c-l> <c-w>l
+nmap <c-h> <c-w>h
+" window resizing, ctrl-up,down,left,right for resizing window
+nmap <c-up> <c-w>+:set wfh<CR>
+nmap <c-down> <c-w>-:set wfh<CR>
+nmap <c-left> <c-w>>:set wfw<CR>
+nmap <c-right> <c-w><:set wfw<CR>
+" window moving, shift-up,down,left,right for moving window
+nmap <s-up> <c-w>K
+nmap <s-down> <c-w>J
+nmap <s-left> <c-w>L
+nmap <s-right> <c-w>H
+
+set splitright  " splitting window will appear to the right of current window
+
+" tag jump related config
+map <f12> g<c-]>
+vmap <f12> g<c-]>
+map <f11> <c-w>g}
+map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
+map <f9> :!ctags -R --extras=+f .
+
 "deal with long lines
 nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0
       \ ? ':normal! ' . (winline() - 1 - &scrolloff) . 'gkg^<CR>'
@@ -271,40 +120,102 @@ map 0 g0
 map ^ g^
 map $ g$
 map 0 g0
-if &diff
-    set noro
+
+" plugins
+"  vim-plug is needed, 
+"  download vim-plug in Unix:
+"   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
+"  For more infomation please goto: https://github.com/junegunn/vim-plug
+call plug#begin()
+"   nerdtree
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+"   auto-pairs: auto pair the coupled signs e.g. (), [], {}
+Plug 'jiangmiao/auto-pairs'
+"   casejump: jumps between switch cases
+Plug 'vim-scripts/casejump.vim'
+"   tagbar
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+"   AutoComplPop: auto popup completion menu when inputing
+Plug 'vim-scripts/AutoComplPop'
+"   localvimrc
+Plug 'embear/vim-localvimrc'
+"   taghighlight: highlight source code elements
+Plug 'abudden/taghighlight-automirror'
+"   Mark--Karkat: mark words as hlsearch does, more info :h mark.txt
+Plug 'vim-scripts/Mark--Karkat'
+"   vim-bufsurf: quick switch among buffers
+Plug 'Qiguang/vim-bufsurf'
+"   starsearch.vim: star search the visual selected word
+Plug 'vim-scripts/star-search'
+
+
+
+call plug#end()
+" some plugins need python installed, about how to install python
+" please see :h python-provider
+
+" plugin related config
+"   nerdtree
+nmap <f8> :NERDTreeToggle<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeWinPos="right"
+let NERDTreeChDirMode=2
+let NERDTreeHighlightCursorline=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+"   auto-pairs
+let g:AutoPairsFlyMode=1
+"   tagbar
+nmap <f7> :TagbarToggle<CR>
+let g:tagbar_width=25
+let g:tagbar_zoomwidth=0
+let g:tagbar_left=1
+let g:tagbar_sort=0
+let g:tagbar_autofocus=1
+highlight TagbarSignature ctermfg=67
+"   taghighlight, please reference to the help doc
+if ! exists('g:TagHighlightSettings')
+	let g:TagHighlightSettings = {}
 endif
-" Dim inactive windows using 'colorcolumn' setting
-" This tends to slow down redrawing, but is very useful.
-" Based on https://groups.google.com/d/msg/vim_use/IJU-Vk-QLJE/xz4hjPjCRBUJ
-" XXX: this will only work with lines containing text (i.e. not '~')
-" from 
-"if exists('+colorcolumn')
-  "function! s:DimInactiveWindows()
-    "for i in range(1, tabpagewinnr(tabpagenr(), '$'))
-      "let l:range = ""
-      "if i != winnr()
-        "if &wrap
-         "" HACK: when wrapping lines is enabled, we use the maximum number
-         "" of columns getting highlighted. This might get calculated by
-         "" looking for the longest visible line and using a multiple of
-         "" winwidth().
-         "let l:width=256 " max
-        "else
-         "let l:width=winwidth(i)
-        "endif
-        "let l:range = join(range(1, l:width), ',')
-      "endif
-      "call setwinvar(i, '&colorcolumn', l:range)
-    "endfor
-  "endfunction
-  "augroup DimInactiveWindows
-    "au!
-    "au WinEnter * call s:DimInactiveWindows()
-    "au WinEnter * set cursorline
-    "au WinLeave * set nocursorline
-  "augroup END
-"endif
+let g:TagHighlightSettings['DisableTagManager'] = 'True'
+nmap <f4> :UpdateTypesFileOnly<CR>
+"   Mark--Karkat, to avoid conflit with starsearch.
+" check Mark--Karkat help doc for help
+nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
+nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
+"   bufsurf
+nmap - :BufSurfBack<CR>
+nmap + :BufSurfForward<CR>
+
+
+" vim specified configs
+if !has('nvim') 
+
+" see usr_05.txt install matchit
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
+
+" auto check file changing out of vim when cursor holded for 'updatetime'
+set updatetime=500
+au CursorHold * silent! checktime
+
+set encoding=utf-8
+" reopen the file with specified encoding
+" :e ++enc=utf-8
+set fileencodings=utf-8,utf-16,gbk,big5,gb180380,latin1
+
+endif
+
+" file type dependent configs
+"
+" autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
+" the file extension 
+autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
+autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
+autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
+
 " for vim-jsbeautify
 autocmd FileType javascript noremap <buffer>  <F4> :call JsBeautify()<cr>
 autocmd FileType json noremap <buffer> <F4> :call JsonBeautify()<cr>

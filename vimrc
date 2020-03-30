@@ -101,7 +101,7 @@ map <f12> g<c-]>
 vmap <f12> g<c-]>
 map <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
-map <f9> :!ctags -R --extras=+f .
+map <f9> :!ctags -f "tags" -R --extra=+f ./*
 
 "deal with long lines
 nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0

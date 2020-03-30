@@ -170,6 +170,9 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 "   auto-pairs
 let g:AutoPairsFlyMode=1
+"   localvimrc
+let g:localvimrc_sandbox = 0
+let g:localvimrc_ask = 0
 "   tagbar
 nmap <f7> :TagbarToggle<CR>
 let g:tagbar_width=25

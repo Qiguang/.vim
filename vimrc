@@ -154,6 +154,12 @@ Plug 'vim-scripts/Mark--Karkat'
 Plug 'Qiguang/vim-bufsurf'
 "   starsearch.vim: star search the visual selected word
 Plug 'vim-scripts/star-search'
+"   commentary: gcc to comment a line, gc to comment by a motion
+Plug 'tpope/vim-commentary'
+"   snippet engine:
+Plug 'SirVer/ultisnips'
+"   snippets used by snippet engine
+Plug 'honza/vim-snippets'
 
 call plug#end()
 " some plugins need python installed, about how to install python

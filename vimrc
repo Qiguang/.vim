@@ -1,4 +1,4 @@
-colorscheme moloka
+colorscheme molokai
 " search&replacement related config
 set incsearch
 set hlsearch

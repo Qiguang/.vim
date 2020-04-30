@@ -160,6 +160,8 @@ Plug 'tpope/vim-commentary'
 Plug 'SirVer/ultisnips'
 "   snippets used by snippet engine
 Plug 'honza/vim-snippets'
+"   git
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 " some plugins need python installed, about how to install python

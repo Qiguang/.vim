@@ -101,7 +101,11 @@ map <f12> g<c-]>
 vmap <f12> g<c-]>
 map <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
-map <f9> :!ctags -f "tags" -R --extra=+f ./*
+map <f9> :!ctags -f "tags" -R --extra=+f ./* 
+" to use ctags more conveniently, 
+" insert commands below in the file .lvimrc
+" cd /the/path/of/the/tagfile
+" set tags=tags
 
 "deal with long lines
 nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0

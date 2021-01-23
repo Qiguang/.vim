@@ -126,6 +126,11 @@ map ^ g^
 map $ g$
 map 0 g0
 
+" terminal related keys ()
+if has('terminal')
+    tnoremap jj <C-W>N
+    nmap <f5> :term ++rows=10<CR>
+endif
 " plugins
 "  vim-plug is needed, 
 "  download vim-plug in Unix:

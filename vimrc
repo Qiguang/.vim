@@ -166,6 +166,9 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 "   git
 Plug 'tpope/vim-fugitive'
+"   airline
+Plug 'vim-airline/vim-airline'
+
 
 call plug#end()
 " some plugins need python installed, about how to install python
@@ -206,7 +209,9 @@ nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
 "   bufsurf
 nmap - :BufSurfBack<CR>
 nmap + :BufSurfForward<CR>
-
+"   airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 
 " vim specified configs
 if !has('nvim') 

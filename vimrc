@@ -126,11 +126,19 @@ map ^ g^
 map $ g$
 map 0 g0
 
-" terminal related keys ()
-if has('terminal')
-    tnoremap jj <C-W>N
+" terminal related
+if !has('nvim') && has('terminal') 
     nmap <f5> :term ++rows=10<CR>
+    tnoremap jj <C-W>N
+    tnoremap <Esc> <C-W>N:q!<CR>
 endif
+if has('nvim') && exists(':tnoremap')
+    nmap <f5> :split term://bash<CR>
+    tnoremap jj <C-\><C-n>
+    au TermOpen * resize 10
+endif
+au BufEnter,BufWinEnter * if &buftype == 'terminal' | AcpDisable | endif
+au BufLeave * if &buftype == 'terminal' | AcpEnable | endif
 " plugins
 "  vim-plug is needed, 
 "  download vim-plug in Unix:

@@ -133,12 +133,15 @@ if !has('nvim') && has('terminal')
     tnoremap <Esc> <C-W>N:q!<CR>
 endif
 if has('nvim') && exists(':tnoremap')
-    nmap <f5> :split term://bash<CR>
+    nmap <f5> :split \| execute 'lcd '.getcwd() \| term<CR>
     tnoremap jj <C-\><C-n>
+    tnoremap <Esc> <C-\><C-n>:q<CR>
     au TermOpen * resize 10
+    au TermOpen * AcpDisable
 endif
-au BufEnter,BufWinEnter * if &buftype == 'terminal' | AcpDisable | endif
+au BufEnter * if &buftype == 'terminal' | AcpDisable | endif
 au BufLeave * if &buftype == 'terminal' | AcpEnable | endif
+
 " plugins
 "  vim-plug is needed, 
 "  download vim-plug in Unix:

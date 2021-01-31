@@ -101,11 +101,34 @@ map <f12> g<c-]>
 vmap <f12> g<c-]>
 map <f11> <c-w>g}
 map <f10> :vsp<CR>:exec("tjump ".expand("<cword>"))<CR>zt
-map <f9> :!ctags -f "tags" -R --extra=+f ./* 
-" to use ctags more conveniently, 
-" insert commands below in the file .lvimrc
-" cd /the/path/of/the/tagfile
-" set tags=tags
+
+function CreateLocalVimrc()
+    if filereadable(".lvimrc")
+        return
+    endif
+    let confirmString = "In order to use ctags more conveniently\nCreate .lvimrc file in ".getcwd()."/ ?"
+    let choice = confirm(confirmString, "&Yes\n&No", 1)
+    if choice == 1
+        let firstLine = "cd ".getcwd()
+        let secondLine = "set tags=".getcwd()."/tags"
+        let lvimrcContent = [firstLine, secondLine]
+        call writefile(lvimrcContent, ".lvimrc")
+        echo "Complete."
+    else
+        echo "Canceled."
+    endif
+endfunction
+function GenTagFile()
+    let confirmString = "Generate tags file for files in ".getcwd()."/ ?"
+    let choice = confirm(confirmString, "&Yes\n&No", 1)
+    if choice == 1
+        :!ctags -f "tags" -R --extra=+f ./* 
+        echo "Complete."
+    else
+        echo "Canceled."
+    endif
+endfunction
+map <f9> :call CreateLocalVimrc() \| call GenTagFile()<CR>
 
 "deal with long lines
 nnoremap <silent> <expr> gH winline() - 1 - &scrolloff > 0

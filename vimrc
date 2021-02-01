@@ -5,6 +5,17 @@ set hlsearch
 nmap / /\c
 nmap ? ?\c
 vmap / <ESC>/\%V\c
+let s:helpList = []
+function HelpString()
+    let helpString = ""
+    call sort(s:helpList)
+    for item in s:helpList
+        let helpString = helpString.item."\n"
+    endfor
+    echo helpString
+endfunction
+nmap <f1> :call HelpString()<CR>
+call add(s:helpList, "F2: Global Search")
 nmap <f2> :gr! "<c-r><c-w>" -iFwr "%:h" <home><c-right><c-right><left>
 vmap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right><left>
 " comment of <f2>: 
@@ -18,6 +29,7 @@ vmap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right><left>
 "     . CWD
 "     %:h the path of current file
 "     %:. in current file
+call add(s:helpList, "F3: Replacement")
 nmap <f3> :%s/<c-r><c-w>//g<right><right>
 vmap <f3> :s/\%V<c-r><c-w>//g<right><right>
 " comment of <f3>:
@@ -37,6 +49,7 @@ autocmd InsertLeave * set nu rnu
 autocmd FileType taglist set nornu
 
 " misc config
+set showcmd   " show typing command in statusline
 set noswapfile
 set laststatus=2  " give a status line to every window
 imap jj <ESC>
@@ -97,6 +110,9 @@ nmap <s-right> <c-w>H
 set splitright  " splitting window will appear to the right of current window
 
 " tag jump related config
+call add(s:helpList, "F10: Jumps to Tag in vsp Window")
+call add(s:helpList, "F11: Jumps to Tag in sp Window")
+call add(s:helpList, "F12: Jumps to Tag in Current Window")
 map <f12> g<c-]>
 vmap <f12> g<c-]>
 map <f11> <c-w>g}
@@ -128,6 +144,7 @@ function GenTagFile()
         echo "Canceled."
     endif
 endfunction
+call add(s:helpList, "F9: Generate Tag File")
 map <f9> :call CreateLocalVimrc() \| call GenTagFile()<CR>
 
 "deal with long lines
@@ -150,6 +167,7 @@ map $ g$
 map 0 g0
 
 " terminal related
+call add(s:helpList, "F5: Open Terminal")
 if !has('nvim') && has('terminal') 
     nmap <f5> :term ++rows=10<CR>
     tnoremap jj <C-W>N
@@ -215,6 +233,7 @@ call plug#end()
 
 " plugin related config
 "   nerdtree
+call add(s:helpList, "F8: Toggle NERDTree")
 nmap <f8> :NERDTreeToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeWinPos="right"
@@ -228,6 +247,7 @@ let g:AutoPairsFlyMode=1
 let g:localvimrc_sandbox = 0
 let g:localvimrc_ask = 0
 "   tagbar
+call add(s:helpList, "F7: Toggle Tagbar")
 nmap <f7> :TagbarToggle<CR>
 let g:tagbar_width=25
 let g:tagbar_zoomwidth=0
@@ -240,6 +260,7 @@ if ! exists('g:TagHighlightSettings')
 	let g:TagHighlightSettings = {}
 endif
 let g:TagHighlightSettings['DisableTagManager'] = 'True'
+call add(s:helpList, "F4: Tag Highlighting")
 nmap <f4> :UpdateTypesFileOnly<CR>
 "   Mark--Karkat, to avoid conflit with starsearch.
 " check Mark--Karkat help doc for help
@@ -280,13 +301,14 @@ autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --inclu
 autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
 
 " for vim-jsbeautify
-autocmd FileType javascript noremap <buffer>  <F4> :call JsBeautify()<cr>
-autocmd FileType json noremap <buffer> <F4> :call JsonBeautify()<cr>
-autocmd FileType jsx noremap <buffer> <F4> :call JsxBeautify()<cr>
-autocmd FileType html noremap <buffer> <F4> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <F4> :call CSSBeautify()<cr>
-autocmd FileType javascript vnoremap <buffer>  <F4> :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <buffer> <F4> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <buffer> <F4> :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <F4> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <F4> :call RangeCSSBeautify()<cr>
+call add(s:helpList, "F6: Code Beautify")
+autocmd FileType javascript noremap <buffer>  <F6> :call JsBeautify()<cr>
+autocmd FileType json noremap <buffer> <F6> :call JsonBeautify()<cr>
+autocmd FileType jsx noremap <buffer> <F6> :call JsxBeautify()<cr>
+autocmd FileType html noremap <buffer> <F6> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <F6> :call CSSBeautify()<cr>
+autocmd FileType javascript vnoremap <buffer>  <F6> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <F6> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <F6> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <F6> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <F6> :call RangeCSSBeautify()<cr>

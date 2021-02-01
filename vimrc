@@ -15,20 +15,47 @@ function HelpString()
     echo helpString
 endfunction
 nmap <f1> :call HelpString()<CR>
+
 call add(s:helpList, "F2: Global Search")
-nmap <f2> :gr! "<c-r><c-w>" -iFwr "%:h" <home><c-right><c-right><left>
-vmap <f2> y:gr! "<c-r>"" -iFr "%:h" <home><c-right><c-right><left>
-" comment of <f2>: 
-"   Fn2 is used for search globally
-"   flags
-"     -i ignore case
-"     -F treat PATTERN as a fixed string but not a regex
-"     -w match a whole word
-"     -r recursively
-"   path to search
-"     . CWD
-"     %:h the path of current file
-"     %:. in current file
+let s:filetypeTrailingList = [
+            \"--include=*.{js,json,css,htm,html}", 
+            \"--include=*.java", 
+            \"--include=*.{c,cpp,hpp,h}",
+            \]
+let s:filetypeTrailingDict = {
+            \"javascript": s:filetypeTrailingList[0],
+            \"json": s:filetypeTrailingList[0],
+            \"css": s:filetypeTrailingList[0],
+            \"html": s:filetypeTrailingList[0],
+            \"java": s:filetypeTrailingList[1],
+            \"cpp": s:filetypeTrailingList[2],
+            \"c": s:filetypeTrailingList[2],
+            \}
+function GlobalSearch(mode)
+    if a:mode == "normal"
+        let wordUnderCursor = expand("<cword>")
+        let searchOptions = "-iFwr"
+    elseif a:mode == "visual"
+        let wordUnderCursor = getreg("\"")
+        let searchOptions = "-iFr"
+    endif
+    let filetypeTrailing = get(s:filetypeTrailingDict, &filetype, "")
+    let grepCmd = 'grep! "'.wordUnderCursor.'" '.searchOptions.' "%:h" '.filetypeTrailing
+    let hint = ""
+    \ . "Grep Flags:\n"
+    \ . "  -i ignore case\n"
+    \ . "  -F treat PATTERN as a fixed string but not a regex\n"
+    \ . "  -w match a whole word\n"
+    \ . "  -r recursively\n"
+    \ . "Path to Search:\n"
+    \ . "  .   CWD (".getcwd()."/)\n"
+    \ . "  %:h the path of current file (".expand("%:h")."/)\n"
+    \ . "  %:. in current file\n\n"
+    let grepCmd = input(hint ,grepCmd)
+    exec("silent ".grepCmd) | cwindow
+endfunction
+nmap <f2> :call GlobalSearch("normal")<CR>
+vmap <f2> y:call GlobalSearch("visual")<CR>
 call add(s:helpList, "F3: Replacement")
 nmap <f3> :%s/<c-r><c-w>//g<right><right>
 vmap <f3> :s/\%V<c-r><c-w>//g<right><right>
@@ -294,12 +321,6 @@ endif
 
 " file type dependent configs
 "
-" autocmd FileType javascript nnoremap <buffer> this cmd makes the f2 follow
-" the file extension 
-autocmd FileType javascript,json,css,htm,html nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{js,json,css,htm,html}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{js,json,css,htm,html}<home><c-right><c-right>
-autocmd FileType java nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.java<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.java<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.java<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.java<home><c-right><c-right>
-autocmd FileType c,cpp,hpp,h nnoremap <buffer> <f2> :gr! "<c-r><c-w>" -iFwr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <f2> y:gr! "<c-r>"" -iFr "." --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | nnoremap <buffer> <leader><f2> :gr! "<c-r><c-w>" -iFwr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right> | vnoremap <buffer> <leader><f2> y:gr! "<c-r>"" -iFr ./ --include=*.{c,cpp,hpp,h}<home><c-right><c-right>
-
 " for vim-jsbeautify
 call add(s:helpList, "F6: Code Beautify")
 autocmd FileType javascript noremap <buffer>  <F6> :call JsBeautify()<cr>

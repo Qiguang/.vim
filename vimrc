@@ -18,19 +18,19 @@ nmap <f1> :call HelpString()<CR>
 
 call add(s:helpList, "F2: Global Search")
 let s:filetypeTrailingList = [
-            \"--include=*.{js,json,css,htm,html}", 
-            \"--include=*.java", 
-            \"--include=*.{c,cpp,hpp,h}",
-            \]
+    \"--include=*.{js,json,css,htm,html}", 
+    \"--include=*.java", 
+    \"--include=*.{c,cpp,hpp,h}",
+\]
 let s:filetypeTrailingDict = {
-            \"javascript": s:filetypeTrailingList[0],
-            \"json": s:filetypeTrailingList[0],
-            \"css": s:filetypeTrailingList[0],
-            \"html": s:filetypeTrailingList[0],
-            \"java": s:filetypeTrailingList[1],
-            \"cpp": s:filetypeTrailingList[2],
-            \"c": s:filetypeTrailingList[2],
-            \}
+    \"javascript": s:filetypeTrailingList[0],
+    \"json": s:filetypeTrailingList[0],
+    \"css": s:filetypeTrailingList[0],
+    \"html": s:filetypeTrailingList[0],
+    \"java": s:filetypeTrailingList[1],
+    \"cpp": s:filetypeTrailingList[2],
+    \"c": s:filetypeTrailingList[2],
+\}
 function GlobalSearch(mode)
     if a:mode == "normal"
         let wordUnderCursor = expand("<cword>")
@@ -52,17 +52,37 @@ function GlobalSearch(mode)
     \ . "  %:h the path of current file (".expand("%:h")."/)\n"
     \ . "  %:. in current file\n\n"
     let grepCmd = input(hint ,grepCmd)
-    exec("silent ".grepCmd) | cwindow
+    if grepCmd != ''
+        exec("silent ".grepCmd) | cwindow
+    endif
 endfunction
 nmap <f2> :call GlobalSearch("normal")<CR>
 vmap <f2> y:call GlobalSearch("visual")<CR>
 call add(s:helpList, "F3: Replacement")
-nmap <f3> :%s/<c-r><c-w>//g<right><right>
-vmap <f3> :s/\%V<c-r><c-w>//g<right><right>
-" comment of <f3>:
-"   Fn3 is used for replacement
-"   append 'c' after this command to enable confirmation for 
-"   every replacement, e.g. %s/StringA/StringB/gc
+function Replace(mode)
+    let visualModeFlag = ''
+    let wordUnderCursor = expand("<cword>")
+    if a:mode == "normal"
+    elseif a:mode == "visual"
+        let visualModeFlag = '\%V'
+    endif
+    let replaceCmd = '%s/'.visualModeFlag.'\<'.wordUnderCursor.'\>/'.wordUnderCursor.'/g'
+    let hint = ""
+    \ . "Flags:\n"
+    \ . "  i ignore case\n"
+    \ . "  c ask for confirmation\n"
+    \ . "Patterns:\n"
+    \ . "  /toBeReplaced/Replacement/ match any occurrence\n"
+    \ . "  /\<toBeReplaced\>/Replacement/ match whole word exactly\n\n"
+    let replaceCmd = input(hint ,replaceCmd)
+    if replaceCmd != ''
+        echo "\n"
+        exec(replaceCmd)
+    endif
+endfunction
+nmap <f3> :call Replace("normal")<CR>
+vmap <f3> y:call Replace("visual")<CR>
+
 nmap <m-up> :cp<CR>
 nmap <m-down> :cn<CR>
 " comment of alt-up,down:

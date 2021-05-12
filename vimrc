@@ -100,7 +100,11 @@ set showcmd   " show typing command in statusline
 set noswapfile
 set laststatus=2  " give a status line to every window
 imap jj <ESC>
-au BufEnter,FocusGained,WinEnter * silent! checktime  " check file change
+
+" auto check file changing out of vim when cursor holded for 'updatetime'
+set updatetime=500
+au BufEnter,FocusGained,BufEnter,FocusLost,WinLeave,CursorHold * silent! checktime
+
 set cul    " show cursorline on active window
 au WinEnter * set cul
 au WinLeave * set nocul
@@ -333,10 +337,6 @@ if !has('nvim')
 if has('syntax') && has('eval')
   packadd! matchit
 endif
-
-" auto check file changing out of vim when cursor holded for 'updatetime'
-set updatetime=500
-au CursorHold * silent! checktime
 
 set encoding=utf-8
 " reopen the file with specified encoding

@@ -54,6 +54,7 @@ function GlobalSearch(mode)
     let grepCmd = input(hint ,grepCmd)
     if grepCmd != ''
         exec("silent ".grepCmd) | cwindow
+        call histadd("cmd", grepCmd)
     endif
 endfunction
 nmap <f2> :call GlobalSearch("normal")<CR>
@@ -78,6 +79,7 @@ function Replace(mode)
     if replaceCmd != ''
         echo "\n"
         exec(replaceCmd)
+        call histadd("cmd", replaceCmd)
     endif
 endfunction
 nmap <f3> :call Replace("normal")<CR>

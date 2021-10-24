@@ -279,6 +279,8 @@ Plug 'vim-airline/vim-airline'
 "   markdown-preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
 
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+
 call plug#end()
 " some plugins need python installed, about how to install python
 " if in nvim, please see :h python-provider
@@ -325,10 +327,7 @@ nmap + :BufSurfForward<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "   markdown-preview
-let g:mkdp_open_to_the_world = 1
 let g:mkdp_echo_preview_url = 1
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 0
 
 " vim specified configs
 if !has('nvim') 

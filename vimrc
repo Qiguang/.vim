@@ -53,7 +53,7 @@ function GlobalSearch(mode)
     \ . "  %:. in current file\n\n"
     let grepCmd = input(hint ,grepCmd)
     if grepCmd != ''
-        exec("silent ".grepCmd) | cwindow
+        exec("silent ".grepCmd) | cwindow | redraw!
         call histadd("cmd", grepCmd)
     endif
 endfunction
@@ -327,6 +327,7 @@ nmap - :BufSurfBack<CR>
 nmap + :BufSurfForward<CR>
 "   airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 "   markdown-preview
 let g:mkdp_echo_preview_url = 1

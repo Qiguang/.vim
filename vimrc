@@ -191,7 +191,7 @@ function GenTagFile()
     let confirmString = "Generate tags file for files in ".getcwd()."/ ?"
     let choice = confirm(confirmString, "&Yes\n&No", 1)
     if choice == 1
-        :!ctags -f "tags" -R --extra=+f ./* 
+        :!ctags -f "tags" -R --extras=+f ./* 
         echo "Complete."
     else
         echo "Canceled."

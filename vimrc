@@ -341,11 +341,13 @@ if has('syntax') && has('eval')
 endif
 
 set encoding=utf-8
+
+endif " !has('nvim')
+
+" make vim support Chinese encodings
+set fileencodings=utf-8,gbk,big5,gb180380,utf-16,latin1
 " reopen the file with specified encoding
 " :e ++enc=utf-8
-set fileencodings=utf-8,utf-16,gbk,big5,gb180380,latin1
-
-endif
 
 " file type dependent configs
 "

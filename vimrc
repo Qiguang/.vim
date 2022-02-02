@@ -48,8 +48,8 @@ function GlobalSearch(mode)
     \ . "  -w match a whole word\n"
     \ . "  -r recursively\n"
     \ . "Path to Search:\n"
-    \ . "  .   CWD (".getcwd()."/)\n"
-    \ . "  %:h the path of current file (".expand("%:h")."/)\n"
+    \ . "  .   CWD (".getcwd().")\n"
+    \ . "  %:h the path of current file (".expand("%:h").")\n"
     \ . "  %:. in current file\n\n"
     let grepCmd = input(hint ,grepCmd)
     if grepCmd != ''
